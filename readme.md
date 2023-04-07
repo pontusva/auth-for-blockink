@@ -1,5 +1,5 @@
 # Backend login for theblock
-Building login auth for a tattoo shop. There is also a another part for booking. You can find that repository here:
+Building login auth for a tattoo shop. There is also a another part for booking. You can find that repository here: https://github.com/pontusva/theblock-dates
 
 These resources has been helpful:
 https://www.loginradius.com/blog/engineering/guest-post/nodejs-authentication-guide/

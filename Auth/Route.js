@@ -12,9 +12,9 @@ var corsOptions = {
 
 router.route('/getAll').get(cors(corsOptions), getAll);
 
-router.route('/register').post(register);
+router.route('/register').post(cors(corsOptions), register);
 
-router.route('/login').post(login);
+router.route('/login').post(cors(corsOptions), login);
 
 router.route('/update').put(adminAuth, update);
 

@@ -38,6 +38,10 @@ exports.register = async (req, res, next) => {
           httpOnly: true,
           maxAge: maxAge * 1000, // 3hrs in ms
         });
+        res.json({
+          token,
+          user,
+        });
         res.status(201).json({
           message: 'User successfully created',
           user: user._id,
@@ -82,6 +86,10 @@ exports.login = async (req, res, next) => {
           res.cookie('jwt', token, {
             httpOnly: true,
             maxAge: maxAge * 1000, // 3hrs in ms
+          });
+          res.json({
+            token,
+            user,
           });
           res.status(201).json({
             message: 'User successfully Logged in',

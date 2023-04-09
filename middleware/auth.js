@@ -5,7 +5,9 @@ const jwtSecret = process.env.JWT_SECRET;
 exports.adminAuth = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
+    console.log(token);
     jwt.verify(token, jwtSecret, (err, decodedToken) => {
+      console.log(decodedToken);
       if (err) {
         return res.status(401).json({ message: 'Not authorized' });
       } else {

@@ -1,4 +1,4 @@
-const User = require('../model/user');
+const User = require('../model/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -7,8 +7,23 @@ const jwtSecret = process.env.JWT_SECRET;
 
 exports.getAll = async (req, res, next) => {
   try {
-    const data = await User.find().sort({ namn: 1 });
-    res.json(data);
+    const data = await User.find()
+      .sort({ namn: 1 })
+      .then((loger) => {
+        const maxAge = 3 * 60 * 60;
+        const token = jwt.sign(
+          { id: loger._id, username: loger.username, role: loger.role },
+          jwtSecret,
+          {
+            expiresIn: maxAge, // 3hrs in sec
+          }
+        );
+        res.cookie('jwt', token, {
+          httpOnly: true,
+          maxAge: maxAge * 1000, // 3hrs in ms
+        });
+        res.json(loger);
+      });
     console.log(req.body);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -42,10 +57,10 @@ exports.register = async (req, res, next) => {
           token,
           user,
         });
-        res.status(201).json({
-          message: 'User successfully created',
-          user: user._id,
-        });
+        // res.status(201).json({
+        //   message: 'User successfully created',
+        //   user: user._id,
+        // });
       })
       .catch((error) =>
         res.status(400).json({
@@ -91,10 +106,10 @@ exports.login = async (req, res, next) => {
             token,
             user,
           });
-          res.status(201).json({
-            message: 'User successfully Logged in',
-            user: user._id,
-          });
+          // res.status(201).json({
+          //   message: 'User successfully Logged in',
+          //   user: user._id,
+          // });
         } else {
           res.status(400).json({ message: 'Login not succesful' });
         }

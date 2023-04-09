@@ -10,7 +10,7 @@ var corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-router.route('/getAll').get(cors(corsOptions), getAll);
+router.route('/getAll').get(cors(corsOptions), adminAuth, getAll);
 
 router.route('/register').post(cors(corsOptions), register);
 

@@ -10,12 +10,15 @@ const corsOptions = {
   origin: '*',
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
+  Connection: 'keep-alive',
+  'Access-Control-Request-Headers': 'Authentication',
 };
 
 app.use(express.json());
 app.use(cookieParser());
 app.use('/api/auth', cors(), require('./Auth/Route'));
 app.use(cors(corsOptions));
+
 app.get('/', (req, res) => {
   console.log('Cookies: ', req.cookies);
 

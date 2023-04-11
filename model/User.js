@@ -18,6 +18,6 @@ const UserSchema = new Mongoose.Schema({
   },
 });
 
-const User = Mongoose.model('user', UserSchema);
+const Dates = Mongoose.model('Data', dataSchema);
 
-module.exports = User;
+module.exports = Dates;
